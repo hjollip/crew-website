@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Chatbot | django_test1{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Chatbot</h2>
+    <p class="muted">This chatbot always replies with <strong>"Say what?"</strong>.</p>
+
+    <div class="chat-window">
+        {% if history %}
+            {% for item in history %}
+                <div class="chat-line {% if item.role == 'user' %}user{% else %}bot{% endif %}">
+                    <span class="chat-role">{% if item.role == 'user' %}You{% else %}Bot{% endif %}:</span>
+                    <span class="chat-text">{{ item.text }}</span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="chat-empty">No messages yet. Type something below.</div>
+        {% endif %}
+    </div>
+
+    <form method="post" class="chat-form">
+        {% csrf_token %}
+        <input name="message" type="text" autocomplete="off" placeholder="Type a message..." required>
+        <button class="btn" type="submit">Send</button>
+    </form>
+
+    <form method="post" action="{% url 'chatbot' %}">
+        {% csrf_token %}
+        <input type="hidden" name="message" value="">
+        <button class="btn btn-secondary" type="submit">Clear chat</button>
+    </form>
+
+    <p class="hint muted">Note: the history is stored in your session and limited to the latest 20 lines.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,4 @@
+
+body { font-family: Arial, sans-serif; }
+.sidebar { float: left; width: 20%; background: #f4f4f4; padding: 15px; }
+.content { float: right; width: 75%; padding: 15px; }

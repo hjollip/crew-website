@@ -1,0 +1,7 @@
+
+body{margin:0;background:#111;color:#eee;font-family:Arial}
+.sidebar{width:200px;height:100vh;background:#1c1c1c;float:left;padding:20px}
+.sidebar a{display:block;color:#eee;margin-bottom:10px;text-decoration:none}
+.sidebar a:hover{color:#0af}
+.content{margin-left:220px;padding:20px}
+input,button{background:#333;color:#eee;border:1px solid #555;padding:5px}

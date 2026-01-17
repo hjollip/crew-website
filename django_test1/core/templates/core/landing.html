@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Landing | django_test1{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Landing</h2>
+    <p class="muted">Sign in with an existing username/password. User creation is intentionally disabled in the web UI.</p>
+
+    {% if user.is_authenticated %}
+        <p>You are signed in as <strong>{{ user.username }}</strong>.</p>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn" type="submit">Log out</button>
+        </form>
+    {% else %}
+        <form method="post" class="form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login" />
+
+            <div class="form-row">
+                <label for="id_username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-row">
+                <label for="id_password">Password</label>
+                {{ form.password }}
+            </div>
+            <button class="btn" type="submit">Log in</button>
+        </form>
+        <div class="hint">
+            <p>Create users via <code>python manage.py createsuperuser</code> or the admin interface. There is no sign-up page.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

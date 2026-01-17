@@ -1,0 +1,14 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Chatbot</h2>
+<div>
+{% for m in history %}
+<p><b>{{ m.role }}:</b> {{ m.content }}</p>
+{% endfor %}
+</div>
+<form method="post">{% csrf_token %}
+<input name="message" style="width:80%">
+<button>Send</button>
+</form>
+{% endblock %}

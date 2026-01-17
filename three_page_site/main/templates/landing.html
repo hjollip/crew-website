@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Landing{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h2 style="margin-top:0;">Landing</h2>
+    <p class="hint">This page lets users log in, log out, and create new users.</p>
+
+    {% if user.is_authenticated %}
+      <p>You are logged in.</p>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="logout" />
+        <button class="btn btn-muted" type="submit">Log out</button>
+      </form>
+    {% else %}
+      <div class="row">
+        <section>
+          <h3 style="margin-top:0;">Log in</h3>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login" />
+
+            {% for field in login_form %}
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="hint">{{ field.errors|striptags }}</div>
+              {% endif %}
+            {% endfor %}
+
+            <div style="margin-top: 12px;">
+              <button class="btn btn-primary" type="submit">Log in</button>
+            </div>
+          </form>
+        </section>
+
+        <section>
+          <h3 style="margin-top:0;">Create account</h3>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="action" value="signup" />
+
+            {% for field in signup_form %}
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}
+                <div class="hint">{{ field.help_text|striptags }}</div>
+              {% endif %}
+              {% if field.errors %}
+                <div class="hint">{{ field.errors|striptags }}</div>
+              {% endif %}
+            {% endfor %}
+
+            <div style="margin-top: 12px;">
+              <button class="btn btn-primary" type="submit">Create user</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
